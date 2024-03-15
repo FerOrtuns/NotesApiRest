@@ -1,13 +1,17 @@
 package pue.edu.notesrestapi.domain;
 
 
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import pue.edu.notesrestapi.configuration.TsidUtils;
 
 import java.util.Objects;
 
-
+@Entity
+@Table(name = "user_pue")
 public class User {
+    @Id
     private long id;
     private String name;
     private String email;
@@ -21,6 +25,8 @@ public class User {
         this.name = name;
         this.email = email;
     }
+
+
 
     public long getId() {
         return id;

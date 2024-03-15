@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import pue.edu.notesrestapi.domain.User;
+import pue.edu.notesrestapi.persistence.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,21 +12,15 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    private List<User> users;
+    private UserRepository userRepository;
 
-    public UserController() {
-
-        users = List.of(new User("Fernando", "Fer@gmail.com"),
-                new User("Cris", "Cris@gmail.com"),
-                new User("Sthep", "Sthep@gmail.com"));
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/users/{id}")
     public User getUser(@PathVariable long id) {
-        return users.stream()
-                .filter(user -> user.getId() == id)
-                .findFirst()
-                .get();
+        return userRepository.findById(id).get();
     }
 
     @GetMapping("/hello")
@@ -35,6 +30,6 @@ public class UserController {
 
     @GetMapping("/users")
     public List<User> getUsers() {
-        return users;
+        return userRepository.findAll();
     }
 }
