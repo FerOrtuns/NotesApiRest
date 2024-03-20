@@ -1,8 +1,6 @@
 package pue.edu.notesrestapi.api;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pue.edu.notesrestapi.domain.User;
 import pue.edu.notesrestapi.persistence.UserRepository;
 
@@ -32,4 +30,20 @@ public class UserController {
     public List<User> getUsers() {
         return userRepository.findAll();
     }
+
+    @PostMapping("/users")
+    public void createUser (@RequestBody User user) {
+        userRepository.save(user);
+    }
+
+    @PutMapping("/users/")
+    public void updateUser (@RequestBody User user) {
+        userRepository.save(user);
+    }
+
+    @DeleteMapping("/users/{id}")
+    public void deleteUser (@PathVariable Long id) {
+        userRepository.deleteById(id);
+    }
+
 }
