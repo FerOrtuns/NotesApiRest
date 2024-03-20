@@ -46,4 +46,24 @@ public class UserController {
         userRepository.deleteById(id);
     }
 
+    @GetMapping("/users/email/{email}")
+    public User getUserByEmail(@PathVariable String email) {
+        return userRepository.findAll().stream()
+                .filter(user -> user.getEmail().equalsIgnoreCase(email))
+                .findFirst()
+                .orElseThrow();
+    }
+
+    @GetMapping("/users/name/{name}")
+    public List<User> getUsersByName(@PathVariable String name) {
+        return (List<User>) userRepository.findAll().stream()
+                .filter(user -> user.getName().equalsIgnoreCase(name))
+                .findAny()
+                .orElseThrow();
+    }
+
+    @GetMapping("/users/count")
+    public long getUsersCount() {
+        return userRepository.count();
+    }
 }
