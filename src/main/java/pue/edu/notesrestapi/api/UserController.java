@@ -1,6 +1,7 @@
 package pue.edu.notesrestapi.api;
 
 import org.springframework.web.bind.annotation.*;
+import pue.edu.notesrestapi.configuration.backFront.Pages;
 import pue.edu.notesrestapi.domain.User;
 import pue.edu.notesrestapi.persistence.UserRepository;
 
@@ -16,6 +17,11 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
+    @GetMapping("/")
+    public String getDefaultPage() {
+        return Pages.defaultPage;
+    }
+
     @GetMapping("/users/{id}")
     public User getUser(@PathVariable long id) {
         return userRepository.findById(id).get();
@@ -25,6 +31,7 @@ public class UserController {
     public String getHello() {
         return "Hello world, amigos del curso de Java :)";
     }
+
 
     @GetMapping("/users")
     public List<User> getUsers() {
